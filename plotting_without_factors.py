@@ -11,3 +11,10 @@ class Person:
         self.vaccination = False
 
 
+class Place:
+    def __init__(self, cmn_place_id):
+        self.cmn_place_id = id
+        self.num_sick = 0
+
+
+
