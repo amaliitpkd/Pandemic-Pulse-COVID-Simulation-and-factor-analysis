@@ -85,6 +85,15 @@
             dead_history.append(dead)
 
         return days, healthy_history, sick_history, recovered_history, dead_history
+    # Set the initial parameters
+    places = 75
+    n_healthy = 25000
+    n_sick = 25
+    iterations = 100
+    initial_social_distancing = 0
+    initial_vaccination = 0
+    initial_travel_rate = 0
+
 
         
 
