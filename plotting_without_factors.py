@@ -93,6 +93,20 @@
     initial_social_distancing = 0
     initial_vaccination = 0
     initial_travel_rate = 0
+    # Set the initial data
+    days, healthy_history, sick_history, recovered_history, dead_history = simulate(
+        places, n_healthy, n_sick, iterations, initial_social_distancing, initial_vaccination, initial_travel_rate
+    )
+
+    # Plot the initial data
+    axs[0].plot(days, healthy_history[:-1])
+    axs[0].set_title('HEALTHY')
+    axs[1].plot(days, sick_history[:-1], 'tab:orange')
+    axs[1].set_title('SICK')
+    axs[2].plot(days, recovered_history[:-1], 'tab:green')
+    axs[2].set_title('RECOVERED')
+    axs[3].plot(days, dead_history[:-1], 'tab:red')
+    axs[3].set_title('DEAD')
 
 
         
