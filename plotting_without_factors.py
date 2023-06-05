@@ -2,13 +2,13 @@ def covid():
 
 
 
-    from random import randint, random
+    from random import randint, random  #importing necessary labraries
     import matplotlib.pyplot as plt
     from matplotlib.animation import FuncAnimation
     from matplotlib.widgets import Slider
 
     class Person:
-        def __init__(self, status, travel_restri):
+        def __init__(self, status, travel_restri): #creating a class person and initialising attributes
             self.status = status
             self.time_sick = 0
             self.cmn_place = []
@@ -17,35 +17,35 @@ def covid():
 
 
     class Place:
-        def __init__(self, cmn_place_id):
+        def __init__(self, cmn_place_id): #creating a class place and initialising attributes
             self.cmn_place_id = id
             self.num_sick = 0
 
 
     def simulate(places, n_healthy, n_sick, time_frame,
-                social_distancing_factor, vaccination_factor, travel_restri):
+                social_distancing_factor, vaccination_factor, travel_restri):# introducing various factors affecting the epidemic spread
         if not 0 <= social_distancing_factor <= 1:
-            raise ValueError("Social distancing factor must be between 0 and 1.")
+            raise ValueError("Social distancing factor must be between 0 and 1.")#error handling
         if not 0 <= vaccination_factor <= 1:
             raise ValueError("Vaccination factor must be between 0 and 1.")
         if not 0 <= travel_restri <= 1:
             raise ValueError("Travel rate must be between 0 and 1.")
 
-        town = [Place(i) for i in range(places)]
+        town = [Place(i) for i in range(places)]#introducing list of cmn_places
         people = [Person('healthy', travel_restri) for _ in range(n_healthy)] + \
                 [Person('sick', travel_restri) for _ in range(n_sick)]
 
-        vaccinated_count = int((n_healthy + n_sick) * vaccination_factor)
+        vaccinated_count = int((n_healthy + n_sick) * vaccination_factor)#for updating the num_of_people vaccinated
         for i in range(vaccinated_count):
             people[i].vaccination = True
 
-        healthy_history = [n_healthy]
+        healthy_history = [n_healthy]#initialising lists for various attributes
         sick_history = [n_sick]
         recovered_history = [0]
         dead_history = [0]
         days = [day for day in range(time_frame)]
 
-        for day in days:
+        for day in days:#intialising values of various parameters
             healthy = 0
             sick = 0
             recovered = 0
@@ -54,7 +54,7 @@ def covid():
             for person in people:
                 person.cmn_place = town[randint(0, len(town) - 1)]
 
-            for person in people:
+            for person in people:#updating the attributes according to the progression of epidemic
                 if person.status == 'healthy':
                     healthy += 1
                 elif person.status == 'sick':
@@ -65,7 +65,7 @@ def covid():
                 else:
                     dead += 1
 
-            for person in people:
+            for person in people:#updating the status according to the progression of epidemic
                 if person.status == 'sick' and person.time_sick < 15:
                     person.time_sick += 1
                 elif person.status == 'sick' and person.time_sick == 15:
@@ -83,7 +83,7 @@ def covid():
             for cmn_place in town:
                 cmn_place.num_sick = 0
 
-            healthy_history.append(healthy)
+            healthy_history.append(healthy)#adding to the lists created
             sick_history.append(sick)
             recovered_history.append(recovered)
             dead_history.append(dead)
